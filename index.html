@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hawking Cipher Observatory</title>
+    <meta
+      name="description"
+      content="A 3D astronomy-themed secret message decoder inspired by A Brief History of Time."
+    >
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23030406'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%23ffd166' stroke-width='3'/%3E%3Cpath d='M10 32h44M32 10v44' stroke='%234be4d3' stroke-width='2'/%3E%3C/svg%3E"
+    >
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <canvas id="space-scene" aria-label="Animated 3D solar system observatory"></canvas>
+
+    <div class="app-shell is-stargazing">
+      <header class="topbar" aria-label="Observatory controls">
+        <a class="brand" href="#decoder" aria-label="Hawking Cipher Observatory">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>
+            <strong>Hawking Cipher</strong>
+            <small>Observatory</small>
+          </span>
+        </a>
+
+        <div class="top-actions">
+          <button class="icon-button" id="stargaze-toggle" type="button" data-tooltip="Decoder">
+            <span class="dock-symbol" aria-hidden="true"></span>
+            <span class="sr-only">Open decoder dock</span>
+          </button>
+          <button class="icon-button" id="boost-toggle" type="button" data-tooltip="Warp">
+            <span class="warp-symbol" aria-hidden="true"></span>
+            <span class="sr-only">Toggle warp lighting</span>
+          </button>
+          <button class="icon-button wide" id="audio-toggle" type="button" data-tooltip="Music">
+            <span class="audio-symbol" id="audio-icon" aria-hidden="true"></span>
+            <span class="sr-only">Play ambient space music</span>
+          </button>
+        </div>
+      </header>
+
+      <button class="decoder-pill" id="decoder-pill" type="button">
+        <span class="decoder-pill-mark" aria-hidden="true"></span>
+        <span>
+          <strong>Open decoder</strong>
+          <small>Hawking cipher dock</small>
+        </span>
+      </button>
+
+      <main class="workbench">
+        <button class="dock-close" id="dock-close" type="button" aria-label="Return to stargaze mode">
+          <span aria-hidden="true"></span>
+        </button>
+        <section class="cipher-console" id="decoder" aria-labelledby="decoder-title">
+          <p class="eyebrow">Book Cipher Transmission</p>
+          <h1 id="decoder-title">Decode the Hawking key</h1>
+          <p class="console-copy">
+            Resolve the coordinates with your own copy of Stephen Hawking's
+            <cite>A Brief History of Time</cite>. Format: chapter.page.line.word.
+            The four clues stay in phrase order.
+          </p>
+
+          <div class="cipher-strip" aria-label="Encoded book cipher coordinates">
+            <span>ABHOT</span>
+            <code>3.142.6.4</code>
+            <code>1.21.11.2</code>
+            <code>6.87.3.9</code>
+            <code>8.204.5.1</code>
+          </div>
+
+          <form class="decoder-form" id="decoder-form">
+            <label for="key-input">Resolved phrase</label>
+            <div class="input-row">
+              <input
+                id="key-input"
+                name="book-key"
+                type="text"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="enter the phrase from the book cipher"
+              >
+              <button class="primary-button" type="submit">Decode</button>
+            </div>
+          </form>
+
+          <div class="status-line" id="decode-status" role="status" aria-live="polite">
+            Signal locked. Awaiting the phrase.
+          </div>
+
+          <div class="secret-vault is-locked" id="secret-vault" aria-live="polite">
+            <span class="vault-label">Hidden message</span>
+            <p id="secret-text">Stars are aligned, but the message is still encrypted.</p>
+            <a class="secret-link" id="secret-link" target="_blank" rel="noopener noreferrer" hidden></a>
+          </div>
+        </section>
+
+        <aside class="mission-panel" aria-label="Solar system controls">
+          <div class="panel-section">
+            <label for="focus-select">Focus</label>
+            <select id="focus-select">
+              <option value="overview">Solar overview</option>
+              <option value="Mercury">Mercury</option>
+              <option value="Venus">Venus</option>
+              <option value="Earth">Earth</option>
+              <option value="Mars">Mars</option>
+              <option value="Jupiter">Jupiter</option>
+              <option value="Saturn">Saturn</option>
+              <option value="Uranus">Uranus</option>
+              <option value="Neptune">Neptune</option>
+            </select>
+          </div>
+
+          <div class="panel-section">
+            <div class="range-head">
+              <label for="orbit-speed">Orbit speed</label>
+              <output id="speed-output" for="orbit-speed">1.0x</output>
+            </div>
+            <input id="orbit-speed" type="range" min="0.2" max="2.8" step="0.1" value="1">
+          </div>
+
+          <div class="panel-section">
+            <div class="range-head">
+              <label for="volume-control">Music level</label>
+              <output id="volume-output" for="volume-control">42%</output>
+            </div>
+            <input id="volume-control" type="range" min="0" max="0.9" step="0.01" value="0.42">
+          </div>
+
+          <div class="planet-readout" id="planet-readout">
+            <strong>Solar overview</strong>
+            <span>Eight planets, one hidden transmission, and a very patient astronaut.</span>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="signal-ticker" aria-label="Live observatory signal">
+        <span>Telemetry: stable</span>
+        <span>Starfield density: 4,800</span>
+        <span>Cipher integrity: AES-GCM</span>
+      </footer>
+    </div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
